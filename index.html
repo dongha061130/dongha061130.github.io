@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="수학적 문제 해결을 바탕으로 데이터·AI·반도체의 연결을 탐구하는 첨단융합학부 김동하의 개인 홈페이지">
+  <meta name="theme-color" content="#155EEF">
+  <title>김동하 | Personal Homepage</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23155eef'/%3E%3Cpath d='M17 17v30M47 17v30M17 32h30' stroke='white' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f7fb;
+      --surface: rgba(255, 255, 255, 0.84);
+      --text: #111827;
+      --muted: #5f697a;
+      --line: #d9dfeb;
+      --accent: #155eef;
+      --accent-soft: #dce8ff;
+      --nav-bg: rgba(245, 247, 251, 0.88);
+      --shadow: 0 18px 50px rgba(21, 94, 239, 0.10);
+    }
+
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #0b1020;
+      --surface: rgba(18, 26, 48, 0.86);
+      --text: #f4f7ff;
+      --muted: #aab5cc;
+      --line: #293655;
+      --accent: #73a5ff;
+      --accent-soft: #162d5c;
+      --nav-bg: rgba(11, 16, 32, 0.88);
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px),
+        var(--bg);
+      background-size: 48px 48px;
+      color: var(--text);
+      font-family: Pretendard, "Noto Sans KR", -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      line-height: 1.65;
+      transition: background-color 180ms ease, color 180ms ease;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 100;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: var(--text);
+      color: var(--bg);
+      transform: translateY(-150%);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid var(--line);
+      background: var(--nav-bg);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav {
+      width: min(1120px, calc(100% - 40px));
+      min-height: 68px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      color: var(--accent);
+    }
+
+    .nav-actions,
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.94rem;
+      font-weight: 650;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--accent);
+    }
+
+    .theme-toggle {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .theme-toggle:hover,
+    .theme-toggle:focus-visible {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: calc(100vh - 69px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.6fr);
+      align-items: center;
+      gap: clamp(40px, 8vw, 104px);
+      padding: 80px 0;
+    }
+
+    .eyebrow,
+    .section-label {
+      margin: 0 0 16px;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 820px;
+      margin-bottom: 24px;
+      font-size: clamp(3.4rem, 9vw, 7.8rem);
+      line-height: 0.96;
+      letter-spacing: -0.075em;
+    }
+
+    h1 span {
+      display: block;
+      color: var(--accent);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 0.72em;
+      font-style: italic;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+    }
+
+    .hero-copy {
+      max-width: 700px;
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: clamp(1.08rem, 2vw, 1.28rem);
+      word-break: keep-all;
+    }
+
+    .hero-note {
+      align-self: end;
+      margin-bottom: 12px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-note strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--accent);
+      font-size: 2rem;
+      line-height: 1.1;
+    }
+
+    .hero-note p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .section {
+      padding: 112px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: 0.7fr 1.3fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    h2 {
+      margin-bottom: 0;
+      font-size: clamp(2.25rem, 5vw, 4.4rem);
+      line-height: 1.05;
+      letter-spacing: -0.055em;
+    }
+
+    .section-intro {
+      max-width: 640px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+      word-break: keep-all;
+    }
+
+    .interest-grid,
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      min-height: 230px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--surface);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.5) inset;
+      transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow);
+      transform: translateY(-4px);
+    }
+
+    .card-number {
+      display: inline-grid;
+      width: 38px;
+      height: 38px;
+      margin-bottom: 42px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 1.25rem;
+      letter-spacing: -0.03em;
+    }
+
+    .card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 0.96rem;
+      word-break: keep-all;
+    }
+
+    .project-card {
+      min-height: 360px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .project-card:first-child {
+      grid-column: span 2;
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .project-card:first-child p,
+    .project-card:first-child .project-meta {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .project-meta {
+      margin-bottom: 18px;
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .project-card h3 {
+      max-width: 680px;
+      margin-bottom: 14px;
+      font-size: clamp(1.7rem, 4vw, 3rem);
+      line-height: 1.08;
+    }
+
+    .metric {
+      display: flex;
+      gap: 28px;
+      margin-top: 36px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.28);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .metric span {
+      font-size: 0.84rem;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .contact-panel {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 44px;
+      align-items: end;
+      padding: clamp(30px, 6vw, 72px);
+      border-radius: 30px;
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    .contact-panel h2 {
+      margin-bottom: 18px;
+    }
+
+    .contact-panel p {
+      max-width: 620px;
+      margin-bottom: 0;
+      opacity: 0.72;
+    }
+
+    .contact-placeholder {
+      justify-self: end;
+      width: min(100%, 280px);
+      padding: 18px 20px;
+      border: 1px solid color-mix(in srgb, var(--bg) 28%, transparent);
+      border-radius: 16px;
+      text-align: left;
+    }
+
+    .contact-placeholder span {
+      display: block;
+      opacity: 0.62;
+      font-size: 0.78rem;
+      font-weight: 750;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .contact-placeholder strong {
+      font-size: 0.92rem;
+    }
+
+    footer {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 32px 0 44px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 820px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero,
+      .section-heading,
+      .contact-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 88px 0 72px;
+      }
+
+      .hero-note {
+        width: min(100%, 420px);
+        margin-top: 18px;
+      }
+
+      .interest-grid,
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card:first-child {
+        grid-column: auto;
+      }
+
+      .section {
+        padding: 82px 0;
+      }
+
+      .section-heading {
+        gap: 22px;
+      }
+
+      .contact-placeholder {
+        justify-self: start;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .nav,
+      main,
+      footer {
+        width: min(100% - 28px, 1120px);
+      }
+
+      h1 {
+        font-size: clamp(3.15rem, 18vw, 5.2rem);
+      }
+
+      .card {
+        min-height: 0;
+      }
+
+      .card-number {
+        margin-bottom: 28px;
+      }
+
+      .metric {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 바로가기</a>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="주요 메뉴">
+      <a class="brand" href="#top"><span class="brand-mark">D</span>ONGHA KIM</a>
+      <div class="nav-actions">
+        <div class="nav-links">
+          <a href="#about">소개</a>
+          <a href="#interests">관심사</a>
+          <a href="#projects">탐구</a>
+          <a href="#contact">연락처</a>
+        </div>
+        <button class="theme-toggle" type="button" aria-label="다크 모드로 전환" title="화면 모드 전환">
+          <span aria-hidden="true">◐</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">Advanced Convergence · Data · AI</p>
+        <h1 id="hero-title">김동하<span>Dongha Kim</span></h1>
+        <p class="hero-copy">
+          첨단융합학부에서 새로운 학문을 배우며, 수학적 사고로 복잡한 문제의 구조를 파악하는 과정에 몰입합니다.
+          데이터·AI·반도체를 연결해 새로운 가능성을 만드는 기술 기반 전문가로 성장하고 싶습니다.
+        </p>
+      </div>
+      <aside class="hero-note" aria-label="현재의 방향">
+        <strong>Focus deeply.<br>Connect broadly.</strong>
+        <p>깊이 몰입하고, 넓게 연결합니다.</p>
+      </aside>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-label">01 · About</p>
+          <h2 id="about-title">깊이 파고드는<br>문제 해결자</h2>
+        </div>
+        <p class="section-intro">
+          답을 바로 외우기보다 원리를 이해하고 스스로 해결하는 과정을 좋아합니다.
+          한 분야에 갇히지 않는 첨단융합학부의 배움을 바탕으로, 서로 다른 기술과 지식 사이의 연결점을 찾고 있습니다.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" id="interests" aria-labelledby="interests-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-label">02 · Interests</p>
+          <h2 id="interests-title">제가 좋아하는<br>세 가지</h2>
+        </div>
+        <p class="section-intro">
+          논리적으로 문제를 풀고 새로운 지식을 배우며, 미래 기술들이 서로 어떻게 연결되는지 탐구합니다.
+        </p>
+      </div>
+
+      <div class="interest-grid">
+        <article class="card">
+          <span class="card-number">01</span>
+          <h3>Mathematical Thinking</h3>
+          <p>복잡한 문제를 작은 단위로 나누고, 조건과 관계를 논리적으로 정리하며 답을 찾아가는 과정을 좋아합니다.</p>
+        </article>
+        <article class="card">
+          <span class="card-number">02</span>
+          <h3>Data &amp; AI</h3>
+          <p>데이터가 세상을 설명하는 방식과 AI가 사람의 선택과 일상을 어떻게 바꾸는지에 관심이 있습니다.</p>
+        </article>
+        <article class="card">
+          <span class="card-number">03</span>
+          <h3>Semiconductor</h3>
+          <p>AI와 데이터 기술을 가능하게 하는 반도체의 원리와 산업을 배우며 기술 간 연결을 이해하고 싶습니다.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="projects" aria-labelledby="projects-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-label">03 · Exploration</p>
+          <h2 id="projects-title">배움에서 시작한<br>질문들</h2>
+        </div>
+        <p class="section-intro">
+          익숙하게 사용하는 기술을 당연하게 받아들이지 않고, 그 기술이 우리의 판단과 선택에 미치는 영향을 질문합니다.
+        </p>
+      </div>
+
+      <div class="project-grid">
+        <article class="card project-card">
+          <div>
+            <p class="project-meta">Writing &amp; Research</p>
+            <h3>알고리즘은 취향을 발견하게 하는가, 제한하는가</h3>
+            <p>추천 알고리즘이 새로운 콘텐츠를 발견하게 하는 동시에 기존 취향을 반복해 보여 줄 수 있다는 양면성을 탐구했습니다.</p>
+          </div>
+          <div class="metric" aria-label="탐구 핵심 키워드">
+            <div><strong>추천</strong><span>알고리즘</span></div>
+            <div><strong>필터</strong><span>버블 현상</span></div>
+            <div><strong>선택</strong><span>선택적 노출</span></div>
+          </div>
+        </article>
+
+        <article class="card project-card">
+          <div>
+            <p class="project-meta">Current Direction</p>
+            <h3>데이터·AI·반도체를 하나의 흐름으로 보기</h3>
+            <p>각 기술을 따로 배우는 데서 멈추지 않고, 데이터가 처리되고 AI가 구현되는 전체 과정을 연결해 이해하는 것이 현재의 목표입니다.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <div class="contact-panel">
+        <div>
+          <p class="section-label">04 · Contact</p>
+          <h2 id="contact-title">좋은 질문에서<br>함께 시작해요.</h2>
+          <p>새로운 학문과 기술, 함께 풀어 볼 문제에 관한 대화를 환영합니다.</p>
+        </div>
+        <div class="contact-placeholder" aria-label="연락 방법">
+          <span>Contact</span>
+          <strong>Email available on request</strong>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="year"></span> Dongha Kim</span>
+    <span>Learning, connecting, and solving.</span>
+  </footer>
+
+  <script>
+    const root = document.documentElement;
+    const toggle = document.querySelector('.theme-toggle');
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      root.dataset.theme = 'dark';
+    }
+
+    function updateThemeLabel() {
+      const isDark = root.dataset.theme === 'dark';
+      toggle.setAttribute('aria-label', isDark ? '라이트 모드로 전환' : '다크 모드로 전환');
+    }
+
+    toggle.addEventListener('click', () => {
+      const nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = nextTheme;
+      localStorage.setItem('theme', nextTheme);
+      updateThemeLabel();
+    });
+
+    updateThemeLabel();
+    document.querySelector('#year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
